@@ -54,3 +54,4 @@ The Iris Classification Project aims to classify the various species of iris flo
 
 ## Conclusion
 The Iris Classification Project’s data strategy and governance framework aim to provide high-quality, reliable data while promoting ethical data handling practices. By aligning our strategic objectives with rigorous governance policies, we can successfully advance our organizational goals and ensure the long-term success of this project.
+
