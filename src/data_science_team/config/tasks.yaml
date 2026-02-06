@@ -1,0 +1,135 @@
+# 1. Strategic & Leadership Phase
+strategic_alignment_task:
+  description: >
+    Define the high-level data strategy and governance standards for the Iris classification project.
+    Ensure the project aligns with organizational goals for data integrity.
+  expected_output: >
+    A markdown document outlining the data strategy, governance policies, and success metrics.
+  agent: chief_data_officer
+  output_file: output/1_strategy_alignment.md
+
+product_roadmap_task:
+  description: >
+    Translate the project strategy into a product roadmap. Identify the specific needs 
+    of the end-users (botanists) and define the features for the Gradio interface.
+  expected_output: >
+    A detailed product roadmap and user requirement document.
+  agent: product_manager
+  context:
+    - strategic_alignment_task
+  output_file: output/2_product_roadmap.md
+
+# 2. Architecture & Engineering Phase
+data_architecture_task:
+  description: >
+    Design the blueprint for how the Iris data will be structured and integrated. 
+    Define the schema for the raw data and the processed features.
+  expected_output: >
+    A data architecture diagram (in markdown) and schema definition.
+  agent: data_architect
+  context:
+    - product_roadmap_task
+  output_file: output/3_data_architecture.md
+
+data_engineering_task:
+  description: >
+    Implement the data pipeline. Use the 'Iris Data Fetcher' tool to download the 
+    dataset and save it as 'iris_data.csv'. Document the cleaning and scaling steps.
+  expected_output: >
+    A log of the data engineering process. (Note: iris_data.csv is also created via tool).
+  agent: data_engineer
+  context:
+    - data_architecture_task
+  output_file: output/4_data_engineering_log.md
+
+# 3. Analysis & Modeling Phase
+exploratory_analysis_task:
+  description: >
+    Perform statistical analysis on 'iris_data.csv' using the 'StatsSummaryTool'. 
+    Identify key feature correlations and species differentiators.
+  expected_output: >
+    A comprehensive data analysis report with statistical summaries.
+  agent: data_analyst
+  context:
+    - data_engineering_task
+  output_file: output/5_data_analysis_report.md
+
+business_requirements_task:
+  description: >
+    Review the analysis and translate the findings into technical specifications 
+    that ensure the model's output will be actionable for the business.
+  expected_output: >
+    A business requirements document (BRD) for the modeling phase.
+  agent: business_analyst
+  context:
+    - exploratory_analysis_task
+  output_file: output/6_business_specs.md
+
+model_training_task:
+  description: >
+    Train a classification model using the processed data. Evaluate performance 
+    using accuracy, precision, and recall.
+  expected_output: >
+    A model performance report including a confusion matrix.
+  agent: data_scientist
+  context:
+    - business_requirements_task
+  output_file: output/7_model_performance.md
+
+# 4. Deployment & Interface Phase
+model_deployment_preparation_task:
+  description: >
+    Package the trained model. Use the 'ModelPersistenceTool' to save the 
+    final model as 'iris_model.joblib'.
+  expected_output: >
+    A deployment manifest describing the model version and parameters.
+  agent: ml_engineer
+  context:
+    - model_training_task
+  output_file: output/8_deployment_manifest.md
+
+mlops_monitoring_task:
+  description: >
+    Set up the monitoring and CI/CD configuration for the Iris model. 
+    Define thresholds for model drift and performance alerts.
+  expected_output: >
+    An MLOps configuration file and monitoring strategy.
+  agent: mlops_engineer
+  context:
+    - model_deployment_preparation_task
+  output_file: output/9_mlops_config.md
+
+frontend_demo_task:
+  description: >
+    Develop the Gradio interface in 'app.py'. The app must load 'iris_model.joblib' 
+    to provide real-time predictions based on user input.
+  expected_output: >
+    The full Python source code for the Gradio application. 
+    Output ONLY raw code without markdown delimiters.
+  agent: frontend_engineer
+  context:
+    - model_deployment_preparation_task
+  output_file: output/app.py
+
+# 5. Governance & Review Phase
+ethical_review_task:
+  description: >
+    Conduct an audit of the entire pipeline. Evaluate the model for transparency, 
+    bias, and compliance with ethical AI standards.
+  expected_output: >
+    A formal ethical review and compliance report.
+  agent: ai_ethicist
+  context:
+    - frontend_demo_task
+  output_file: output/10_ethical_review.md
+
+project_management_review_task:
+  description: >
+    Review the final outputs from all agents. Ensure the project is complete, 
+    on budget, and ready for stakeholder presentation.
+  expected_output: >
+    A final project executive summary and sign-off document.
+  agent: data_science_manager
+  context:
+    - ethical_review_task
+  output_file: output/11_final_project_summary.md
